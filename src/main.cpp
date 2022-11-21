@@ -190,12 +190,12 @@ static int cmd_bypass(const struct shell *sh, size_t argc, char **argv)
 	return set_bypass(sh, bypass_cb);
 }
 
-SHELL_CMD_ARG_REGISTER(power_mode, NULL, "Enable power", cmd_power_mode, 1, 0);
-SHELL_CMD_ARG_REGISTER(idle_mode, NULL, "Disable power", cmd_idle_mode, 1, 0);
-SHELL_CMD_ARG_REGISTER(logging_msg, NULL, "Retrieve logging messages and data", cmd_bypass, 1, 0);
-SHELL_CMD_ARG_REGISTER(duty_up, NULL, "Increase duty cycle by 0.05", cmd_duty_up, 1, 0);
-SHELL_CMD_ARG_REGISTER(duty_down, NULL, "Decrease duty cycle by 0.05", cmd_duty_down, 1, 0);
-SHELL_CMD_ARG_REGISTER(board_info, NULL, "Show software and hardware version", cmd_board_info, 1, 0);
+SHELL_CMD_REGISTER(power_mode, NULL, "Enable power", cmd_power_mode);
+SHELL_CMD_REGISTER(idle_mode, NULL, "Disable power", cmd_idle_mode);
+SHELL_CMD_REGISTER(logging_msg, NULL, "Retrieve logging messages and data", cmd_bypass);
+SHELL_CMD_REGISTER(duty_up, NULL, "Increase duty cycle by 0.05", cmd_duty_up);
+SHELL_CMD_REGISTER(duty_down, NULL, "Decrease duty cycle by 0.05", cmd_duty_down);
+SHELL_CMD_REGISTER(board_info, NULL, "Show software and hardware version", cmd_board_info);
 
 
 void setup_hardware()

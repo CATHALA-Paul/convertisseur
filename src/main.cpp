@@ -145,6 +145,7 @@ static int cmd_power_mode(const struct shell *sh, size_t argc, char **argv)
 {
     mode = POWERMODE;
     shell_print(sh, "Power mode activated", NULL);
+    printk("tototutoutout");
 
     return 0;
 }
@@ -203,7 +204,7 @@ void setup_hardware()
     hwConfig.setBoardVersion(TWIST_v_1_1_2);
     hwConfig.configureAdcDefaultAllMeasurements();
     hwConfig.initInterleavedBuckMode();  
-    console_init();
+    // console_init();
     //setup your hardware here
 }
 
@@ -211,7 +212,6 @@ void setup_software()
 {
     scheduling.startApplicationTask(loop_application_task);
     scheduling.startControlTask(loop_control_task, control_task_period);
-
     //setup your software scheduling here
 }
 
@@ -281,9 +281,9 @@ void main(void)
 		return;
 	}
 
-	while (!dtr) {
-		uart_line_ctrl_get(dev, UART_LINE_CTRL_DTR, &dtr);
-		k_sleep(K_MSEC(100));
-	}
+	// while (!dtr) {
+	// 	uart_line_ctrl_get(dev, UART_LINE_CTRL_DTR, &dtr);
+	// 	k_sleep(K_MSEC(100));
+	// }
 #endif
 }

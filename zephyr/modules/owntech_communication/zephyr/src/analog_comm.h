@@ -17,35 +17,41 @@
  * SPDX-License-Identifier: LGLPV2.1
  */
 
-#ifndef ANALOGCOMMUNICATION_H_
-#define ANALOGCOMMUNICATION_H_
+/**
+ * @date   2022
+ *
+ * @author Luiz Villa <luiz.villa@laas.fr>
+ */
 
-#ifdef CONFIG_OWNTECH_COMMUNICATION_ENABLE_ANALOG
+#ifndef ANALOG_COMM_H_
+#define ANALOG_COMM_H_
 
-#include <stdint.h>
-#include <arm_math.h>
-
-
-/////
-// Static class definition
-
-class AnalogCommunication
-{
-
-public:
-	static void init();
-	static void triggerAnalogComm();
-	static float32_t getAnalogCommValue();
-	static void setAnalogCommValue(uint32_t analog_bus_value);
-};
+#include <zephyr.h>
+#include "arm_math.h"
 
 
-/////
-// Public object to interact with the class
+/**
+ * @brief    Initilializes the analog communication 
+ */
+void analog_comm_init();
 
-extern AnalogCommunication analogCommunication;
+/**
+ * @brief    Triggers an analog communication via software
+ */
+void analog_comm_trigger();
 
+/**
+ * @brief    Converts the values of the analog communication bus via ADC 4
+ *
+ * @return  a foat32_t value for analog communication bus
+ */
+float32_t analog_comm_get_value();
 
-#endif // CONFIG_OWNTECH_COMMUNICATION_ENABLE_ANALOG
+/**
+ * @brief    Sets the value of the DAC2 which is used in the analog communication
+ *
+ * @param[in] analog_bus_value
+ */
+void analog_comm_set_value(uint32_t analog_bus_value);
 
-#endif // ANALOGCOMMUNICATION_H_
+#endif // ANALOG_COMM_H

@@ -9,6 +9,7 @@ if(CONFIG_OWNTECH_COMMUNICATION)
   if (CONFIG_OWNTECH_COMMUNICATION_ENABLE_ANALOG)
     zephyr_library_sources(
       public_api/AnalogCommunication.cpp
+      src/analog_comm.cpp
     )
   endif()
 

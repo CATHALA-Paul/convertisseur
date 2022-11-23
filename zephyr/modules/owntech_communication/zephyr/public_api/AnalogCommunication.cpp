@@ -16,3 +16,42 @@
  *
  * SPDX-License-Identifier: LGLPV2.1
  */
+
+#include "../src/analog_comm.h"
+
+#include "AnalogCommunication.h"
+
+/////
+// Public object to interact with the class
+
+AnalogCommunication analogCommunication;
+
+
+/////
+// Extern variable defined in this module
+
+extern uint16_t broadcast_time;
+extern uint16_t control_time;
+
+
+
+void AnalogCommunication::init()
+{
+    analog_comm_init();
+}
+
+void AnalogCommunication::triggerAnalogComm()
+{
+    analog_comm_trigger();
+}
+
+float32_t AnalogCommunication::getAnalogCommValue()
+{
+    return analog_comm_get_value();
+}
+
+void AnalogCommunication::setAnalogCommValue(uint32_t analog_bus_value)
+{
+    analog_comm_set_value(analog_bus_value);
+}
+

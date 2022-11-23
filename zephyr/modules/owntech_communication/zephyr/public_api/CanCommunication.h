@@ -27,6 +27,8 @@
 #ifndef CANCOMMUNICATION_H_
 #define CANCOMMUNICATION_H_
 
+#ifdef CONFIG_OWNTECH_COMMUNICATION_ENABLE_CAN
+
 #include <stdint.h>
 #include <arm_math.h>
 
@@ -58,5 +60,6 @@ public:
 
 extern CanCommunication canCommunication;
 
+#endif // CONFIG_OWNTECH_COMMUNICATION_ENABLE_CAN
 
 #endif // CANCOMMUNICATION_H_

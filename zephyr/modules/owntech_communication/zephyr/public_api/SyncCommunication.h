@@ -22,7 +22,28 @@
 
 #ifdef CONFIG_OWNTECH_COMMUNICATION_ENABLE_SYNC
 
+#include <stdint.h>
+
+
+/////
+// Static class definition
+
+class SyncCommunication
+{
+
+public:
+	static void initMaster();
+	static void initSlave();
+};
+
+
+/////
+// Public object to interact with the class
+
+extern SyncCommunication syncCommunication;
+
 
 #endif // CONFIG_OWNTECH_COMMUNICATION_ENABLE_SYNC
 
 #endif // SYNCCOMMUNICATION_H_
+

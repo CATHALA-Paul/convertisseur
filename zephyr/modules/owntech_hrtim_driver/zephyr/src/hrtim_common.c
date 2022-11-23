@@ -42,7 +42,9 @@ void _hrtim_init_events(hrtim_tu_t leg1_tu, hrtim_tu_t leg2_tu)
 	hrtim_adc_trigger_en(3, 3, LL_HRTIM_ADCTRIG_SRC13_TIMCCMP4);
 	}
 
-	hrtim_update_adc_trig_interleaved(1, leg1_tu, leg2_tu);
+	uint16_t adc_initial_trigger_value = 100; //This value is NOT arbritrary. It is compatible with sync in and sync out of the HRTIM  
+
+	hrtim_update_adc_trig_interleaved(adc_initial_trigger_value, leg1_tu, leg2_tu);  
 }
 
 void _hrtim_init_events_center_aligned(hrtim_tu_t leg1_tu, hrtim_tu_t leg2_tu)

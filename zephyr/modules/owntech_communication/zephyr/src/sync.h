@@ -17,23 +17,26 @@
  * SPDX-License-Identifier: LGLPV2.1
  */
 
-#include "../src/sync.h"
+/**
+ * @date   2022
+ *
+ * @author Luiz Villa <luiz.villa@laas.fr>
+ */
+#ifndef SYNC_H_
+#define SYNC_H_
 
-#include "SyncCommunication.h"
-
-/////
-// Public object to interact with the class
-
-SyncCommunication syncCommunication;
+#include <zephyr.h>
 
 
-void SyncCommunication::initMaster()
-{
-    sync_master_init();
-}
+/**
+ * @brief    Initilializes the hrtim sync in master mode 
+ */
+void sync_master_init();
 
-void SyncCommunication::initSlave()
-{
-    sync_slave_init();
-}
+/**
+ * @brief    Initilializes the hrtim sync in slave mode
+ */
+void sync_slave_init();
 
+
+#endif // SYNC_H_

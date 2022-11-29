@@ -7,6 +7,8 @@ if OWNTECH_COMMUNICATION
 	config OWNTECH_COMMUNICATION_ENABLE_ANALOG
 		bool "Enable analogic communication API"
 		default y
+		select OWNTECH_DATA_ACQUISITION
+		select OWNTECH_HARDWARE_CONFIGURATION
 
 	config OWNTECH_COMMUNICATION_ENABLE_CAN
 		bool "Enable CAN bus communication API (Thingset over CAN)"

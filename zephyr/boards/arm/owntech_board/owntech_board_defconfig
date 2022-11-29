@@ -24,3 +24,11 @@ CONFIG_ARM_MPU=y
 
 # Enable HW stack protection
 CONFIG_HW_STACK_PROTECTION=y
+
+# CAN default configuration
+CONFIG_ISOTP_RX_BUF_COUNT=2
+#A frame has 7 bytes payload, we are using a BS of 8 and need one char for the
+#string termination (7 * 8 + 1 = 57)
+CONFIG_ISOTP_RX_BUF_SIZE=57
+#We have two receiving contexts that are bound to a single address.
+CONFIG_ISOTP_RX_SF_FF_BUF_COUNT=2

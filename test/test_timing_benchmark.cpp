@@ -92,7 +92,7 @@ timing_t start_time, end_time;
 uint64_t total_cycles[100];
 uint64_t total_ns[100];
 bool data_rdy = 0;
-int cnt=0;
+volatile int cnt=0;
 
 uint64_t sum = 0;
 uint64_t mean = 0;
@@ -250,7 +250,9 @@ void loop_application_task()
     printk("%f:", ihigh_value);
     printk("%f:", i1_low_value);
     printk("%f:", extra_value);
-    printk("%f\n", i2_low_value);
+    printk("%f", i2_low_value);
+    printk("%d", cnt);
+    printk("%llu\n",total_ns[cnt-1]);
 
     k_msleep(100);    
   }        
@@ -344,8 +346,8 @@ void loop_control_task()
 }
 
 void test_timing(void){
-
-  if(data_rdy==1){
+  
+  printk("toto\n");
     for(int i=0; i < 100; i++){
       total_ns[i] = timing_cycles_to_ns(total_cycles[i]);
     }
@@ -357,22 +359,21 @@ void test_timing(void){
       var += (mean - total_ns[k]) * (mean - total_ns[k]);
     }
   stdev = sqrt(var/100);
-  }
-
-  printk("Control loop execution time : Mean = %d ns, Standard deviation = %d ns\n", mean, stdev);
+  printk("Control loop execution time : Mean = %llu ns, Standard deviation = %llu ns\n", mean, stdev);
 }
 
 void setUp(void) {
-    setup_hardware();
-    setup_software();
+
 }
 
 void tearDown(void) {
   // clean stuff up here
 }
 
-
 int main(void) {
+    setup_hardware();
+    setup_software();
+    k_msleep(100);
     UNITY_BEGIN();
     RUN_TEST(test_timing);
     return UNITY_END();

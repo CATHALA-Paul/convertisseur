@@ -54,9 +54,19 @@ int8_t Scheduling::defineUninterruptibleSynchronousTask(void (*periodic_task)(),
 	return scheduling_define_uninterruptible_synchronous_task(periodic_task, task_period_us);
 }
 
+int8_t Scheduling::deconfigUninterruptibleSynchronousTask(void)
+{
+	return scheduling_deconfig_uninterruptible_synchronous_task();
+}
+
 void Scheduling::startUninterruptibleSynchronousTask()
 {
 	scheduling_start_uninterruptible_synchronous_task();
+}
+
+void Scheduling::stopUninterruptibleSynchronousTask()
+{
+	scheduling_stop_uninterruptible_synchronous_task();
 }
 
 

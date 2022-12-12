@@ -52,10 +52,41 @@ int8_t scheduling_define_uninterruptible_synchronous_task(void (*periodic_task)(
 	}
 }
 
+int8_t scheduling_deconfig_uninterruptible_synchronous_task(void)
+{
+	if ((uninterruptibleTaskDefined == true))
+	{
+		// Configure and start timer
+
+		struct timer_config_t timer_cfg = {0};
+		timer_cfg.timer_enable_irq   = 0;
+		timer_cfg.timer_irq_callback = NULL;
+		timer_cfg.timer_irq_t_usec   = 0;
+
+		timer_config(timer6, &timer_cfg);
+
+		uninterruptibleTaskDefined = false;
+
+		return 0;
+	}
+	else
+	{
+		return -1;
+	}
+}
+
 void scheduling_start_uninterruptible_synchronous_task()
 {
 	if ( (device_is_ready(timer6) == true) && (uninterruptibleTaskDefined == true ) )
 	{
 		timer_start(timer6);
+	}
+}
+
+void scheduling_stop_uninterruptible_synchronous_task()
+{
+	if ( (device_is_ready(timer6) == true) && (uninterruptibleTaskDefined == true ) )
+	{
+		timer_stop(timer6);
 	}
 }

@@ -101,12 +101,14 @@ struct timer_config_t
 
 typedef void     (*timer_api_config)   (const struct device* dev, const struct timer_config_t* config);
 typedef void     (*timer_api_start)    (const struct device* dev);
+typedef void     (*timer_api_stop)     (const struct device* dev);
 typedef uint32_t (*timer_api_get_count)(const struct device* dev);
 
 __subsystem struct timer_driver_api
 {
     timer_api_config    config;
 	timer_api_start     start;
+	timer_api_stop		stop;
 	timer_api_get_count get_count;
 };
 
@@ -134,6 +136,19 @@ static inline void timer_start(const struct device* dev)
 	const struct timer_driver_api* api = (const struct timer_driver_api*)(dev->api);
 
 	api->start(dev);
+}
+
+/**
+ * Stop timer count, and disable interupts when timer is used to generate
+ * periodic interupts.
+ *
+ * @param dev Zephyr device representing the timer.
+ */
+static inline void timer_stop(const struct device* dev)
+{
+	const struct timer_driver_api* api = (const struct timer_driver_api*)(dev->api);
+
+	api->stop(dev);
 }
 
 /**

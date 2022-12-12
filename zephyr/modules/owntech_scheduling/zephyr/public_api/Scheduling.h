@@ -60,10 +60,27 @@ public:
 	int8_t defineUninterruptibleSynchronousTask(void (*periodic_task)(), uint32_t task_period_us);
 
 	/**
+	 * @brief Clears uninterruptible synchronous task configuration.
+	 *
+	 *
+	 * @return 0 if everything went well,
+	 * -1 if there was an error deconfiguring the task.
+	 * An error can occur if no interupt
+	 * task have been defined previously.
+	 */
+	int8_t deconfigUninterruptibleSynchronousTask();
+
+	/**
 	 * @brief Use this function to start the previously defined
 	 * uninterruptible synchronous task.
 	*/
 	void startUninterruptibleSynchronousTask();
+
+	/**
+	 * @brief Use this function to stop the previously defined
+	 * uninterruptible synchronous task.
+	*/
+	void stopUninterruptibleSynchronousTask();
 
 
 #ifdef CONFIG_OWNTECH_SCHEDULING_ENABLE_ASYNCHRONOUS_TASKS

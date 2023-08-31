@@ -33,6 +33,9 @@
 #include "DataAcquisition.h"
 #include "data_acquisition_internal.h"
 
+#ifdef CONFIG_OWNTECH_SCHEDULING_TIMING
+#include "timing/timing.h"
+#endif
 
 /////
 // Local variables and constants
@@ -53,7 +56,19 @@ static task_function_t user_periodic_task = NULL;
 static bool do_data_dispatch = false;
 static uint32_t task_period = 0;
 
-
+#ifdef CONFIG_OWNTECH_SCHEDULING_TIMING
+/////
+// For timing recording - Must be declared as volatile
+// to be catched by debugguer
+volatile uint32_t record_rise_data_dispatch[2048];
+volatile uint32_t record_fall_data_dispatch[2048];
+volatile uint32_t record_rise_control_task[2048];
+volatile uint32_t record_fall_control_task[2048];
+bool reset_i = 0;
+bool reset_j = 0;
+int i = 0;
+int j = 0;
+#endif
 /////
 // Private API
 
@@ -63,10 +78,42 @@ void user_task_proxy()
 
 	if (do_data_dispatch == true)
 	{
+		#ifdef CONFIG_OWNTECH_SCHEDULING_TIMING
+		// LL_GPIO_SetOutputPin(GPIOB, LL_GPIO_PIN_2);
+		if (i <= 2047) {
+			if (i == 0) {timing_start();}
+		}
+		else if (i >2047 && reset_i == 0){
+			i = 0;
+			reset_i = 1; //Dump the first array 
+		}
+		record_rise_data_dispatch[i] = (uint32_t)timing_counter_get();
+		#endif
+
 		data_dispatch_do_full_dispatch();
+
+		#ifdef CONFIG_OWNTECH_SCHEDULING_TIMING
+		record_fall_data_dispatch[i] = (uint32_t)timing_counter_get();
+		#endif
 	}
 
+	#ifdef CONFIG_OWNTECH_SCHEDULING_TIMING
+	if (j <= 2047) {
+		j += 1;
+	}		
+	else if (j > 2047 && reset_j == 0){
+		j = 0;
+		reset_j = 1;
+	}
+	record_rise_control_task[j] = (uint32_t)timing_counter_get();
+	#endif
+
 	user_periodic_task();
+
+	#ifdef CONFIG_OWNTECH_SCHEDULING_TIMING
+	record_fall_control_task[j] = (uint32_t)timing_counter_get();
+	#endif
+
 }
 
 /////

@@ -28,8 +28,26 @@
  * @author  Clément Foucher <clement.foucher@laas.fr>
  */
 
+#include <dfu/mcuboot.h>
+#include <stdio.h>
+#include <zephyr.h>
+#include <usb/usb_device.h>
 
 void main(void)
 {
+	if (IS_ENABLED(CONFIG_USB_DEVICE_STACK)) {
+		int rc;
+		rc = usb_enable(NULL);
+		if (rc) {
+			printk("Failed to enable USB");
+			return;
+		}
+	}
+	boot_write_img_confirmed();
 
+	while(1)
+	{
+		printk("toto\n");
+		k_msleep(1000);
+	}
 }

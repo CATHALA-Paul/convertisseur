@@ -1,3 +1,15 @@
+# Signing an image using imgtool.py 
+
+```imgtool sign -v 1 --header-size 512 --slot-size 0x38000 --align 8 --key ~/Bureau/zephyr/bootloader/mcuboot/root-rsa-2048.pem ./.pio/build/spin/firmware.bin ./.pio/build/spin/zephyr.signed.bin``` 
+
+Adapt paths to match your repo. 
+
+# Upload the signed image 
+
+Launch flash.py.
+
+
+# OwnTech Core
 
 This is the OwnTech Power API Core repository.
 

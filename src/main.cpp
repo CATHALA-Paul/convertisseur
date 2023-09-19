@@ -33,8 +33,23 @@
 #include <zephyr.h>
 #include <usb/usb_device.h>
 
+#ifdef CONFIG_MCUMGR_CMD_OS_MGMT
+#include "os_mgmt/os_mgmt.h"
+#endif
+#ifdef CONFIG_MCUMGR_CMD_IMG_MGMT
+#include "img_mgmt/img_mgmt.h"
+#endif
+
+
 void main(void)
 {
+	#ifdef CONFIG_MCUMGR_CMD_OS_MGMT
+		os_mgmt_register_group();
+	#endif
+	#ifdef CONFIG_MCUMGR_CMD_IMG_MGMT
+		img_mgmt_register_group();
+	#endif
+
 	if (IS_ENABLED(CONFIG_USB_DEVICE_STACK)) {
 		int rc;
 		rc = usb_enable(NULL);
@@ -43,11 +58,11 @@ void main(void)
 			return;
 		}
 	}
+
 	boot_write_img_confirmed();
 
 	while(1)
 	{
-		printk("toto\n");
-		k_msleep(1000);
+		k_sleep(K_MSEC(1000));	
 	}
 }

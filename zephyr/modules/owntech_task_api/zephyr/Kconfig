@@ -24,4 +24,15 @@ if OWNTECH_TASK_API
 		int "Stack size for asynchronous threads"
 		default 1024
 
+	config OWNTECH_SCHEDULING_TIMING
+		bool "Records timings of data acquisitions and control task"
+		help
+			Enabling scheduling timing creates 4 arrays containing 2048 values. These array store the timings
+			Before data_dispatch, after data_dispatch, before the control task, and after the control task. 
+			As such these values can be retrieved through the debugger to get a real life insights on the time taken 
+			to retrieve data, and to the computation time of the control task.
+		select TIMING_FUNCTIONS
+		default n
+		
+
 endif
